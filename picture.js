@@ -2,7 +2,7 @@ function Picture(source) {
   this.source = source;
 
   this.image = loadImage(this.source, function(img) {
-    createCanvas(img.width, img.height);
+    canvas = createCanvas(img.width, img.height);
     image(img, 0, 0);
     loadPixels();
   });
