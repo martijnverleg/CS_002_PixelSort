@@ -1,6 +1,7 @@
 let picture;
 
 function setup() {
+  pixelDensity(1);
   createCanvas(1,1);
   uploadContainer = createDiv('');
   controlsContainer = createDiv('');
