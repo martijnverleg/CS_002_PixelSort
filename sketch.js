@@ -1,8 +1,9 @@
 let picture;
+let canvas;
 
 function setup() {
   pixelDensity(1);
-  createCanvas(1,1);
+  canvas = createCanvas(1,1);
   uploadContainer = createDiv('');
   controlsContainer = createDiv('');
   fileInput = createFileInput(loadFile);
@@ -18,6 +19,7 @@ function setup() {
   thresholdInput = createSlider(0, 100, 25);
   thresholdValue = createP(thresholdInput.value());
   processButton = createButton('process');
+  saveButton = createButton('save');
 
   uploadContainer.child(fileInput);
   controlsContainer.child(compareDropDown);
@@ -27,6 +29,7 @@ function setup() {
   controlsContainer.child(thresholdInput);
   controlsContainer.child(thresholdValue);
   controlsContainer.child(processButton);
+  controlsContainer.child(saveButton);
 }
 
 function draw() {
@@ -36,6 +39,7 @@ function draw() {
 function loadFile(file) {
   if (file.type === 'image') {
     picture = new Picture(file.data);
+    console.log(file);
 
     processButton.mousePressed(function() {
       picture.compareProperty = compareDropDown.value();
@@ -43,6 +47,11 @@ function loadFile(file) {
       picture.inverted = invertedInput.checked();
       picture.vertical = verticalInput.checked();
       picture.sortPixels();
+    });
+
+    saveButton.mousePressed(function() {
+      const fileName = file.name.split('.')[0] + '_sorted.jpg';
+      save(canvas, fileName);
     });
   }
 }
